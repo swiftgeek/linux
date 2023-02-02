@@ -55,10 +55,13 @@ d) package the new file (psr.asl) to an ACPI table format.
 
    Note that the full pathname of the method in ACPI namespace
    should be used.
-e) assemble the file to generate the AML code of the method.
-   e.g. "iasl -vw 6084 psr.asl" (psr.aml is generated as a result)
-   If parameter "-vw 6084" is not supported by your iASL compiler,
-   please try a newer version.
+e) assemble the file to generate the AML code of the method,
+   ignoring missing prefix scopes and objects. e.g.
+   "iasl -vw 6084 -vw 6160 psr.asl" (psr.aml is generated as
+   a result). If parameters "-vw 6084" and "-vw 6160" are
+   not supported by your iASL compiler, please try a newer version.
+   In the future it might be necessary to ignore more error
+   messageids.
 f) mount debugfs by "mount -t debugfs none /sys/kernel/debug"
 g) override the old method via the debugfs by running
    "cat /tmp/psr.aml > /sys/kernel/debug/acpi/custom_method"
